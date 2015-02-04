@@ -4,7 +4,7 @@ from spiders import rfs
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', seconds=20)
+@sched.scheduled_job('interval', minutes=3)
 def timed_job():
     print "Running RFS"
     rfs()
