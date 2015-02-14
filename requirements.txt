@@ -5,4 +5,3 @@ redis
 capparselib>=0.5.2
 keen
 responses
-keen
