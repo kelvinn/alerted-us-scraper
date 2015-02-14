@@ -28,7 +28,7 @@ def rfs():
 
 def usgs():
 
-    # Use requetss so we can mock it out while testing
+    # Use requests so we can mock it out while testing
     r = requests.get('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.atom')
     d = feedparser.parse(r.content)
     alerts = []
@@ -44,4 +44,23 @@ def usgs():
                     conn.setex(cache_key, "submitted", 100000)
                     resp = requests.get(link_href)
                     alerts.append(resp.content)
+    return alerts
+
+def taiwan():
+
+    # Use requests so we can mock it out while testing
+    r = requests.get('https://alerts.ncdr.nat.gov.tw/RssAtomFeed.ashx')
+    d = feedparser.parse(r.content)
+    alerts = []
+
+    for entry in d['entries']:
+        links = entry['links']
+        for link in links:
+            link_href = link['href']
+            cache_key = '%s:id' % link_href
+            active = conn.get(cache_key)
+            if not active:
+                conn.setex(cache_key, "submitted", 100000)
+                resp = requests.get(link_href)
+                alerts.append(resp.content)
     return alerts

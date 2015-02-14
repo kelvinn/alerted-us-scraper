@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+<identifier>THB-Bobe2015021417044705281791366163</identifier>
+<sender>thb.gov.tw</sender>
+<sent>2015-02-14T17:04:47+08:00</sent>
+<status>Actual</status>
+<msgType>Alert</msgType>
+<scope>Public</scope>
+<info>
+<language>zh-TW</language>
+<category>Transport</category>
+<event>道路封閉</event>
+<urgency>Immediate</urgency>
+<severity>Moderate</severity>
+<certainty>Observed</certainty>
+<eventCode>
+<valueName>profile:CAP-TWP:Event:1.0</valueName>
+<value>roadClose</value>
+</eventCode>
+<effective>2014-05-26T17:30:00+08:00</effective>
+<expires>2015-02-15T07:00:00+08:00</expires>
+<senderName>交通部公路總局</senderName>
+<headline>台16線 29K+500~41K+253道路封閉</headline>
+<description>
+南投縣 信義鄉 台16線 29K+500~41K+253 預警性封閉。預計封閉時間：2014/5/26 下午 05:30:00；預計開放時間：2019/12/31 上午 07:00:00</description>
+<instruction>請用路人儘速改道。</instruction>
+<web>http://bobe168.tw</web>
+<parameter>
+<valueName>alert_title</valueName>
+<value>道路封閉通知</value>
+</parameter>
+<parameter>
+<valueName>RoadClose_type</valueName>
+<value>預警性封閉</value>
+</parameter>
+<parameter>
+<valueName>alert_color</valueName>
+<value>紅色</value>
+</parameter>
+<area>
+<areaDesc>台16線 29K+500~41K+253                              </areaDesc>
+<circle>23.79326,120.9437 10.0</circle></area>
+</info>
+</alert>
+

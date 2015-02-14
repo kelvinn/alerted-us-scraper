@@ -28,6 +28,8 @@ def transmit(alerts):
     # Determine if the alert can be parsed as valid CAP XML
     result = False
 
+
+
     for alert in alerts:
         alert = alert.replace('\n', '')
 

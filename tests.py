@@ -2,7 +2,7 @@ import unittest
 import responses
 from os import getenv
 import redis
-from spiders import rfs, usgs
+from spiders import rfs, usgs, taiwan
 from common import transmit
 from capparselib.parsers import CAPParser
 
@@ -54,6 +54,24 @@ class AppTestCase(unittest.TestCase):
         result = usgs()
         alert = CAPParser(result[0]).as_dict()
         self.assertEqual('USGS-earthquakes-nn00482627.703198.482627.20150214T025331.156Z.3', alert[0]['cap_id'])
+
+    @responses.activate
+    def test_taiwan_get(self):
+
+        sample = open(r'data/taiwan.atom', 'r').read()
+        responses.add(responses.GET, 'https://alerts.ncdr.nat.gov.tw/RssAtomFeed.ashx',
+              body=sample, status=200,
+              content_type='application/xml')
+
+        usgs_sample_cap = open(r'data/taiwan.cap', 'r').read()
+        responses.add(responses.GET, 'https://alerts.ncdr.nat.gov.tw/Capstorage/THB/2015/roadClose/THB-Bobe2015021417044705281791366163.cap',
+              body=usgs_sample_cap, status=200,
+              content_type='application/xml')
+
+        result = taiwan()
+        alert = CAPParser(result[0]).as_dict()
+        self.assertEqual('THB-Bobe2015021417044705281791366163', alert[0]['cap_id'])
+
 
 if __name__ == '__main__':
     unittest.main()
