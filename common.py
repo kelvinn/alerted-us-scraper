@@ -2,6 +2,7 @@ import logging
 import requests
 from os import getenv
 import redis
+import keen
 import base64
 from capparselib.parsers import CAPParser
 
@@ -31,6 +32,8 @@ def transmit(alerts):
         alert = alert.replace('\n', '')
 
         name = "Unknown"
+        status_code = 0
+
         try:
             alert_list = CAPParser(alert).as_dict()
             name = alert_list[0]['cap_sender']
@@ -50,4 +53,12 @@ def transmit(alerts):
             if resp.status_code == 201:
                 result = True
 
+        transmit_to_keen("transmit", {"result": "%s" % result, "sender": "%s" % name,
+                                          "status_code": "%s" % status_code})
     return result
+
+
+def transmit_to_keen(collection_name, msg):
+    if RACK_ENV == "production":
+        keen.add_event(collection_name, msg)
+
