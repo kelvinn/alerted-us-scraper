@@ -32,7 +32,6 @@ def transmit(alerts):
         alert = alert.replace('\n', '')
 
         name = "Unknown"
-        status_code = 0
 
         try:
             alert_list = CAPParser(alert).as_dict()
@@ -53,7 +52,7 @@ def transmit(alerts):
             if resp.status_code == 201:
                 result = True
 
-        transmit_to_keen("transmit", {"result": "%s" % result, "sender": "%s" % name,
+            transmit_to_keen("transmit", {"result": "%s" % result, "sender": "%s" % name,
                                           "status_code": "%s" % status_code})
     return result
 
