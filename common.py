@@ -55,7 +55,7 @@ def transmit(alerts):
                 result = True
 
             transmit_to_keen("transmit", {"result": "%s" % result, "sender": "%s" % name,
-                                          "status_code": "%s" % status_code})
+                                          "status_code": "%s" % status_code, "identifier": "%s" % identifier})
     return result
 
 
