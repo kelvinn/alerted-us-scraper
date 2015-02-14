@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<capIndex xmlns="http://www.incident.com/cap_index/1.0">
+<title>NY State-Wide CAP Index</title>
+<updated>2015-02-14T07:16:39.3777735-05:00</updated>
+<item>
+    <id>NYAlert-ALLHAZALERT-4277728</id>
+    <identifier>NYAlert-ALLHAZALERT-4277728</identifier>
+    <sender>NYAlert</sender>
+    <status>Actual</status>
+    <msgType>Alert</msgType>
+    <firstEffective>2015-02-14T06:25:00</firstEffective>
+    <lastExpires>2015-02-14T07:26:00</lastExpires>
+    <url>http://www.nyalert.gov/Public/News/GetCapAlert.aspx?notID=4277728</url>
+    <format>http://www.incident.com/cap/1.1</format>
+</item>
+
+</capIndex>

@@ -2,7 +2,7 @@ import unittest
 import responses
 from os import getenv
 import redis
-from spiders import rfs, usgs, taiwan
+from spiders import rfs, usgs, taiwan, allny
 from common import transmit
 from capparselib.parsers import CAPParser
 
@@ -72,6 +72,26 @@ class AppTestCase(unittest.TestCase):
         alert = CAPParser(result[0]).as_dict()
         self.assertEqual('THB-Bobe2015021417044705281791366163', alert[0]['cap_id'])
 
+    # This is waiting on NY to clean up their CAP feeds
+    """
+    @responses.activate
+    def test_allny_get(self):
+
+        sample = open(r'data/allnycap.xml', 'r').read()
+        responses.add(responses.GET, 'http://rss.nyalert.gov/CAP/Indices/_ALLNYCAP.xml',
+              body=sample, status=200,
+              content_type='application/xml')
+
+
+        ny_sample_cap = open(r'data/ny.cap', 'r').read()
+        responses.add(responses.GET, "http://www.nyalert.gov/Public/News/GetCapAlert.aspx",
+              body=ny_sample_cap, status=200,
+              content_type='application/xml')
+
+        result = allny()
+        alert = CAPParser(result[0]).as_dict()
+        self.assertEqual('THB-Bobe2015021417044705281791366163', alert[0]['cap_id'])
+    """
 
 if __name__ == '__main__':
     unittest.main()

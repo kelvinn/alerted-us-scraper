@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<alert xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:oasis:names:tc:emergency:cap:1.1">
+  <identifier>NYAlert-ALLHAZALERT-4277728</identifier>
+  <sender>NYAlert</sender>
+  <sent>2015-02-14T07:16:40-05:00</sent>
+  <status>Actual</status>
+  <msgType>Update</msgType>
+  <source>NY-Alert</source>
+  <scope>Public</scope>
+  <code>NYAlert</code>
+  <references>NYAlert,NYAlert-ALLHAZALERT-4277726,2015-02-14T05:47:00-05:00</references>
+  <info>
+    <event>NYSDOT Blocked Lanes</event>
+    <senderName>NYS - DOT</senderName>
+    <headline>CLEARED: E/B I-278/Brooklyn-Queens Expressway at Atlantic Avenue all lanes reopened at 6:25AM due to an earlier disabled tractor trailer. - Kings Co.</headline>
+    <description>CLEARED: E/B I-278/Brooklyn-Queens Expressway at Atlantic Avenue all lanes reopened at 6:25AM due to an earlier disabled tractor trailer. - Kings Co. No unusual delays.  
+
+ </description>
+    <instruction>For more travel information, visit 511NY ("http://www.511ny.org") .  
+
+ For more information on Trans Alert, visit FAQs ("https://users.nyalert.gov/HelpIndex/DisplayTextItem.aspx?itemID=192&amp;Audit=true") .  
+
+ B/2/R11 - ECL  
+
+ </instruction>
+    <web>http://www.nyalert.gov/Public/News/AlertView.aspx?notID=4277728&amp;refer=HOME&amp;source=TCC&amp;messageID=AghxO4T6A&amp;</web>
+    <area>
+      <areaDesc>New York - Kings County</areaDesc>
+      <geocode>
+        <valueName>FIPS6</valueName>
+        <value>036047</value>
+      </geocode>
+    </area>
+    <category>Transport</category>
+    <responseType>None</responseType>
+    <urgency>Immediate</urgency>
+    <severity>Moderate</severity>
+    <certainty>Observed</certainty>
+    <effective>2015-02-14T06:25:00-05:00</effective>
+    <expires>2015-02-14T07:26:00-05:00</expires>
+  </info>
+</alert>

@@ -64,3 +64,21 @@ def taiwan():
                 resp = requests.get(link_href)
                 alerts.append(resp.content)
     return alerts
+
+
+def allny():
+
+    # Use requests so we can mock it out while testing
+    r = requests.get('http://rss.nyalert.gov/CAP/Indices/_ALLNYCAP.xml')
+    d = feedparser.parse(r.content)
+    alerts = []
+
+    for entry in d['entries']:
+        link_href = entry['href']
+        cache_key = '%s:id' % link_href
+        active = conn.get(cache_key)
+        if not active:
+            conn.setex(cache_key, "submitted", 100000)
+            resp = requests.get(link_href)
+            alerts.append(resp.content)
+    return alerts
