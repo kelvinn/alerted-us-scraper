@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+    <identifier>USGS-earthquakes-nn00482627.703198.482627.20150214T025331.156Z.3</identifier>
+    <sender>http://earthquake.usgs.gov/research/monitoring/anss/regions/imw/</sender>
+    <sent>2015-02-14T02:53:31+00:00</sent>
+    <status>Actual</status>
+    <msgType>Update</msgType>
+    <scope>Public</scope>
+    <addresses>0</addresses>
+    <code>IPAWSv1.0</code>
+    <references>http://earthquake.usgs.gov/research/monitoring/anss/regions/imw/,USGS-earthquakes-nn00482627.703189.482627.20150214T024044.977Z.3,2015-02-14T02:40:44+00:00 http://earthquake.usgs.gov/research/monitoring/anss/regions/ak/,USGS-earthquakes-at00njqpk9.703174.1.20150214T023156.000Z.3,2015-02-14T02:31:56+00:00</references>
+    <info>
+        <category>Geo</category>
+        <event>Earthquake</event>
+        <urgency>Past</urgency>
+        <severity>Unknown</severity>
+        <certainty>Likely</certainty>
+        <eventCode>
+            <valueName>SAME</valueName>
+            <value>EQW</value>
+        </eventCode>
+        <onset>2015-02-14T02:28:56+00:00</onset>
+        <expires>2015-02-21T02:53:31+00:00</expires>
+        <senderName>Nevada Seismological Laboratory</senderName>
+        <headline>EQ 4.7 Scottys Castle, CA - PRELIMINARY REPORT</headline>
+        <description>An earthquake with magnitude 4.7 occurred near Scottys Castle, CA at 02:28:56.10 UTC on Feb 14, 2015. (This event has been reviewed by a seismologist.)</description>
+        <instruction>None</instruction>
+        <web>http://earthquake.usgs.gov/earthquakes/eventpage/nn00482627</web>
+        <contact>http://earthquake.usgs.gov/research/monitoring/anss/regions/imw/</contact>
+        <parameter>
+            <valueName>EventTime</valueName>
+            <value>20150214T022856.100Z</value>
+        </parameter>
+        <parameter>
+            <valueName>EventIDKey</valueName>
+            <value>nn00482627</value>
+        </parameter>
+        <parameter>
+            <valueName>Version</valueName>
+            <value>482627</value>
+        </parameter>
+        <parameter>
+            <valueName>Magnitude</valueName>
+            <value>4.7</value>
+        </parameter>
+        <parameter>
+            <valueName>Depth</valueName>
+            <value>18.1 km (11.2 miles)</value>
+        </parameter>
+        <parameter>
+            <valueName>HorizontalError</valueName>
+            <value>2.1 km</value>
+        </parameter>
+        <parameter>
+            <valueName>VerticalError</valueName>
+            <value>2.5 km</value>
+        </parameter>
+        <parameter>
+            <valueName>NumStations</valueName>
+            <value>13</value>
+        </parameter>
+        <parameter>
+            <valueName>NumPhases</valueName>
+            <value>19</value>
+        </parameter>
+        <parameter>
+            <valueName>MinDistance</valueName>
+            <value>19.1 km</value>
+        </parameter>
+        <parameter>
+            <valueName>RMSTimeError</valueName>
+            <value>0.16 seconds</value>
+        </parameter>
+        <parameter>
+            <valueName>AzimuthalGap</valueName>
+            <value>75 degrees</value>
+        </parameter>
+        <resource>
+            <resourceDesc>NOAA Tsunami Messages issued in the past 7 days</resourceDesc>
+            <mimeType>text/html</mimeType>
+            <uri>http://www.tsunami.gov/</uri>
+        </resource>
+        <resource>
+            <resourceDesc>Did you feel it?</resourceDesc>
+            <mimeType>text/html</mimeType>
+            <uri>http://earthquake.usgs.gov/earthquakes/dyfi/events/nn/00482627/us/index.html</uri>
+        </resource>
+        <resource>
+            <resourceDesc>ShakeMapURL</resourceDesc>
+            <mimeType>text/html</mimeType>
+            <uri>http://earthquake.usgs.gov/product/shakemap/nn00482627/nn/1423881710853/intensity.html</uri>
+        </resource>
+        <area>
+            <areaDesc>9 miles (15 km) NNE of Scottys Castle, CA; 11 miles (17 km) S of Tokop, NV; 31 miles (50 km) SE of Sylvania, NV; 32 miles (52 km) WNW of Beatty, NV; 131 miles (210 km) WNW of Las Vegas, NV</areaDesc>
+            <circle>37.145,-117.259 0.0</circle>
+        </area>
+    </info>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>CmJqObXV4AXGKhAw98pxsNHXlGI=</DigestValue></Reference></SignedInfo><SignatureValue>OMDTcZhEQvypPuLKYdtfIjmyYleumAmoSSzL+VbNPMc+58M32tSApXikAoUc9QEIR2zVG/uKuAl6
+Dm+o2WPI6Oo6vq8xt4VDR+4c0/qX3GekTuG+xkatAIoHUAhHF4aFBSauteKHd0KdDgjDJprcyPFi
+6iiBS4N8Iu30m5QvsERXI58ACeTYzT+B9Bzgvb2PYP9duifnbm86HqZl3SipUQvzeV4Ac1w1SeoB
+V94lJWUGdtBzXITCXN1moWMtLXNWNZ/siGRyPUNin/mC6iBi+7UFRTISH4ihZhm81uxKAUAT+KFe
+LfMZfRDIfPN3lT4alAI8JhmhwC95raNP+VoD5Q==</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>xpVvSZiG8aJgbJZZJB0sOkGeGetDrQs0m/McENvtjuG3Fh8L6oMbxZ4m1aVY58kwUyeOB5UFZNC5
+1rWEeI7q+E0LVGRniZ9RkkPOscYRRz842NiPvKwRe9GDcvMgQTHGTXRLDaJu5skpgU6qZWLVwpnz
+6ZPC3b265O/PlqQAkBZDzRn/xXRY8ZbuXH6JC03Xc5GasfsQsG5wnKljmGN37q1GdglxezsVKjpT
+Unv0xT0HOXToXAG454cXkq7Z9aZ7SvdxTou/ZftkIkBG3Mw7cB2KMB8GqwTWVA/HOsn22qGMBOJb
+zO/2evPSqoDkx0i15RajzCNs0u5uT0o2VR+Oow==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue></KeyInfo></Signature></alert>

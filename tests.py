@@ -1,10 +1,10 @@
 import unittest
-from spiders import rfs
-from common import transmit
 import responses
 from os import getenv
 import redis
-
+from spiders import rfs, usgs
+from common import transmit
+from capparselib.parsers import CAPParser
 
 redis_url = getenv('REDISCLOUD_URL', 'redis://localhost:6379')
 
@@ -38,6 +38,22 @@ class AppTestCase(unittest.TestCase):
         result2 = transmit(result)
         self.assertTrue(result2)
 
+    @responses.activate
+    def test_usgs_get(self):
+
+        sample = open(r'data/usgs.atom', 'r').read()
+        responses.add(responses.GET, 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.atom',
+              body=sample, status=200,
+              content_type='application/xml')
+
+        usgs_sample_cap = open(r'data/usgs.cap', 'r').read()
+        responses.add(responses.GET, 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/nn00482627.cap',
+              body=usgs_sample_cap, status=200,
+              content_type='application/xml')
+
+        result = usgs()
+        alert = CAPParser(result[0]).as_dict()
+        self.assertEqual('USGS-earthquakes-nn00482627.703198.482627.20150214T025331.156Z.3', alert[0]['cap_id'])
 
 if __name__ == '__main__':
     unittest.main()
