@@ -5,21 +5,15 @@ import redis
 import base64
 from capparselib.parsers import CAPParser
 
-if getenv('ALERTED_USERPASS'):
-    ALERTED_API = 'https://alerted.us/api/v1/alerts/'
-    ALERTED_USERPASS = str(getenv('ALERTED_USERPASS'))
-    RACK_ENV = "production"
-else:
-    ALERTED_API = 'http://localhost:8000/api/v1/alerts/'
-    ALERTED_USERPASS = 'admin:password'  # This is the same default password used in the dev alerted website
-    RACK_ENV = "development"
+ALERTED_USERPASS = getenv('ALERTED_USERPASS', 'admin:password')
+RACK_ENV = getenv('RACK_ENV', 'development')
+ALERTED_API = getenv('ALERTED_API', 'http://localhost:8000/api/v1/alerts/')
+REDIS_URL = getenv('REDISCLOUD_URL', 'redis://localhost:6379')
 
 HEADERS = {'Content-Type': 'application/xml', 'Accept': 'application/xml',
-            'Authorization': 'Basic %s' % base64.b64encode(ALERTED_USERPASS)}
+            'Authorization': 'Basic %s' % base64.b64encode(str(ALERTED_USERPASS))}
 
-redis_url = getenv('REDISCLOUD_URL', 'redis://localhost:6379')
-
-conn = redis.from_url(redis_url)
+conn = redis.from_url(REDIS_URL)
 
 
 def transmit(alerts):

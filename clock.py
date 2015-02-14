@@ -7,7 +7,7 @@ sched = BlockingScheduler()
 
 @sched.scheduled_job('interval', minutes=3)
 def timed_job():
-    print "Running RFS"
+    print "Running RFS Spider"
     alerts = rfs()
     transmit(alerts)
 

@@ -7,7 +7,6 @@ def rfs():
 
     r.encoding = 'utf-8'
 
-
     tree = etree.fromstring(r.content.replace('\n          ', ''))
 
     scraped = tree.xpath('/edxlde:EDXLDistribution[1]/edxlde:contentObject/edxlde:xmlContent/edxlde:embeddedXMLContent/cap:alert',
