@@ -1,5 +1,5 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
-from spiders import rfs, usgs, taiwan
+from spiders import rfs, usgs, taiwan, noaa
 from common import transmit
 
 
@@ -21,6 +21,12 @@ def usgs_timed_job():
 def taiwan_timed_job():
     print "Running Taiwan Spider"
     alerts = taiwan()
+    transmit(alerts)
+
+@sched.scheduled_job('interval', minutes=3)
+def noaa_timed_job():
+    print "Running NOAA Weather Spider"
+    alerts = noaa()
     transmit(alerts)
 
 sched.start()

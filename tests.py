@@ -2,7 +2,7 @@ import unittest
 import responses
 from os import getenv
 import redis
-from spiders import rfs, usgs, taiwan, allny
+from spiders import rfs, usgs, taiwan, allny, noaa
 from common import transmit
 from capparselib.parsers import CAPParser
 
@@ -72,6 +72,24 @@ class AppTestCase(unittest.TestCase):
         alert = CAPParser(result[0]).as_dict()
         self.assertEqual('THB-Bobe2015021417044705281791366163', alert[0]['cap_id'])
 
+    @responses.activate
+    def test_noaa_get(self):
+
+        sample = open(r'data/noaa.atom', 'r').read()
+        responses.add(responses.GET, "https://alerts.weather.gov/cap/us.php",
+              body=sample, status=200,
+              content_type='application/xml')
+
+        noaa_sample_cap = open(r'data/noaa.cap', 'r').read()
+        responses.add(responses.GET, 'http://alerts.weather.gov/cap/wwacapget.php',
+              body=noaa_sample_cap, status=200,
+              content_type='application/xml')
+
+        result = noaa()
+
+        alert = CAPParser(result[0]).as_dict()
+        self.assertEqual('NOAA-NWS-ALERTS-AK12539CADCECC.WinterWeatherAdvisory.12539CBBD120AK.AFGWSWNSB.bda790b45bcda3f2c9f1d0a1bdec3ec3', alert[0]['cap_id'])
+
     # This is waiting on NY to clean up their CAP feeds
     """
     @responses.activate
@@ -92,6 +110,8 @@ class AppTestCase(unittest.TestCase):
         alert = CAPParser(result[0]).as_dict()
         self.assertEqual('THB-Bobe2015021417044705281791366163', alert[0]['cap_id'])
     """
+
+
 
 if __name__ == '__main__':
     unittest.main()
