@@ -1,12 +1,7 @@
 import requests
 from lxml import etree
 import feedparser
-import redis
-from os import getenv
-
-
-REDIS_URL = getenv('REDISCLOUD_URL', 'redis://localhost:6379')
-conn = redis.from_url(REDIS_URL)
+from sqlite_cache import SQLiteCache
 
 
 def rfs():
@@ -16,8 +11,9 @@ def rfs():
 
     tree = etree.fromstring(r.content.replace('\n          ', ''))
 
-    scraped = tree.xpath('/edxlde:EDXLDistribution[1]/edxlde:contentObject/edxlde:xmlContent/edxlde:embeddedXMLContent/cap:alert',
-            namespaces = {
+    scraped = tree.xpath(
+        '/edxlde:EDXLDistribution[1]/edxlde:contentObject/edxlde:xmlContent/edxlde:embeddedXMLContent/cap:alert',
+        namespaces={
             'edxlde': 'urn:oasis:names:tc:emergency:EDXL:DE:1.0',
             'georss': 'http://www.georss.org/georss',
             'cap': 'urn:oasis:names:tc:emergency:cap:1.2'
@@ -27,6 +23,8 @@ def rfs():
 
 
 def usgs():
+    # This will be erased on each deploy to Heroku, but that's OK
+    cache = SQLiteCache("/tmp/cache.db", capacity=5000)
 
     # Use requests so we can mock it out while testing
     r = requests.get('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.atom')
@@ -39,14 +37,18 @@ def usgs():
             if link['type'] == 'application/cap+xml':
                 link_href = link['href']
                 cache_key = '%s:id' % link_href
-                active = conn.get(cache_key)
+                active = cache.get(cache_key)
                 if not active:
-                    conn.setex(cache_key, "submitted", 100000)
+                    cache.set(cache_key, "submitted")
                     resp = requests.get(link_href)
                     alerts.append(resp.content)
+    cache.close()
     return alerts
 
+
 def taiwan():
+    # This will be erased on each deploy to Heroku, but that's OK
+    cache = SQLiteCache("/tmp/cache.db", capacity=5000)
 
     # Use requests so we can mock it out while testing
     r = requests.get('https://alerts.ncdr.nat.gov.tw/RssAtomFeed.ashx')
@@ -58,15 +60,18 @@ def taiwan():
         for link in links:
             link_href = link['href']
             cache_key = '%s:id' % link_href
-            active = conn.get(cache_key)
+            active = cache.get(cache_key)
             if not active:
-                conn.setex(cache_key, "submitted", 100000)
+                cache.set(cache_key, "submitted")
                 resp = requests.get(link_href)
                 alerts.append(resp.content)
+    cache.close()
     return alerts
 
 
 def allny():
+    # This will be erased on each deploy to Heroku, but that's OK
+    cache = SQLiteCache("/tmp/cache.db", capacity=5000)
 
     # Use requests so we can mock it out while testing
     r = requests.get('http://rss.nyalert.gov/CAP/Indices/_ALLNYCAP.xml')
@@ -76,14 +81,18 @@ def allny():
     for entry in d['entries']:
         link_href = entry['href']
         cache_key = '%s:id' % link_href
-        active = conn.get(cache_key)
+        active = cache.get(cache_key)
         if not active:
-            conn.setex(cache_key, "submitted", 100000)
+            cache.set(cache_key, "submitted")
             resp = requests.get(link_href)
             alerts.append(resp.content)
+    cache.close()
     return alerts
 
+
 def noaa():
+    # This will be erased on each deploy to Heroku, but that's OK
+    cache = SQLiteCache("/tmp/cache.db", capacity=5000)
 
     # Use requests so we can mock it out while testing
     r = requests.get("https://alerts.weather.gov/cap/us.php?x=1")
@@ -95,9 +104,10 @@ def noaa():
         for link in links:
             link_href = link['href']
             cache_key = '%s:id' % link_href
-            active = conn.get(cache_key)
+            active = cache.get(cache_key)
             if not active:
-                conn.setex(cache_key, "submitted", 100000)
+                cache.set(cache_key, "submitted")
                 resp = requests.get(link_href)
                 alerts.append(resp.content)
+    cache.close()
     return alerts

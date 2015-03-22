@@ -1,23 +1,22 @@
+from _sqlite3 import OperationalError
 import unittest
 import responses
-from os import getenv
-import redis
+from os import remove
 from spiders import rfs, usgs, taiwan, allny, noaa
 from common import transmit
 from capparselib.parsers import CAPParser
-
-redis_url = getenv('REDISCLOUD_URL', 'redis://localhost:6379')
-
-conn = redis.from_url(redis_url)
 
 
 class AppTestCase(unittest.TestCase):
 
     def setUp(self):
-        conn.flushdb()
+        pass
 
     def tearDown(self):
-        pass
+        try:
+            remove('/tmp/cache.db')
+        except OSError:
+            pass
 
     @responses.activate
     def test_rfs_get(self):
@@ -114,4 +113,6 @@ class AppTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
+
     unittest.main()
+
