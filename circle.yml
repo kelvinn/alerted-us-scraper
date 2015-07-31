@@ -1,0 +1,20 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t alerted-us-scraper .
+
+test:
+  override:
+    - docker run --rm alerted-us-scraper python tests.py
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $TUTUM_EMAIL -u $TUTUM_USER -p $TUTUM_PASS tutum.co 
+      - docker tag web tutum.co/zephell/alerted-us-scraper
+      - docker push tutum.co/zephell/alerted-us-scraper
