@@ -17,7 +17,7 @@ deployment:
     branch: master
     commands:
       - docker login -e $TUTUM_EMAIL -u $TUTUM_USER -p $TUTUM_PASS tutum.co
-      - docker tag alerted-us-scraper tutum.co/zephell/alerted-us-scraper:$CIRCLE_BUILD_NUM-$CIRCLE_SHA1
-      - docker push tutum.co/zephell/alerted-us-scraper:$CIRCLE_BUILD_NUM-$CIRCLE_SHA1
-      - tutum service set --image tutum.co/zephell/alerted-us-scraper:$CIRCLE_BUILD_NUM-$CIRCLE_SHA1 $TUTUM_PROD_NAME --sync
+      - docker tag alerted-us-scraper tutum.co/zephell/alerted-us-scraper:$CIRCLE_BUILD_NUM
+      - docker push tutum.co/zephell/alerted-us-scraper:$CIRCLE_BUILD_NUM
+      - tutum service set --image tutum.co/zephell/alerted-us-scraper:$CIRCLE_BUILD_NUM $TUTUM_PROD_NAME --sync
       - tutum service redeploy $TUTUM_PROD_NAME --sync
