@@ -15,6 +15,6 @@ deployment:
   hub:
     branch: master
     commands:
-      - docker login -e $TUTUM_EMAIL -u $TUTUM_USER -p $TUTUM_PASS tutum.co 
-      - docker tag alerted-us-scraper tutum.co/zephell/alerted-us-scraper
-      - docker push tutum.co/zephell/alerted-us-scraper
+      - docker login -e $TUTUM_EMAIL -u $TUTUM_USER -p $TUTUM_PASS tutum.co
+      - docker tag alerted-us-scraper tutum.co/zephell/alerted-us-scraper:$CIRCLE_BUILD_NUM_CIRCLE_SHA1
+      - docker push tutum.co/zephell/alerted-us-scraper:$CIRCLE_BUILD_NUM_CIRCLE_SHA1
