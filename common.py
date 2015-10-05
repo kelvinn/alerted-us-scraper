@@ -28,36 +28,30 @@ def transmit(alerts):
 
     result = False
 
+
     for alert in alerts:
         alert = alert.replace('\n', '')
 
         name = "Unknown"
+        identifier = ''
+        active = False
 
         try:
             alert_list = CAPParser(alert).as_dict()
             name = alert_list[0]['cap_sender']
-            identifier = alert_list[0]['cap_id']
+            identifier = str(alert_list[0]['cap_id'])
+            active = cache.get(identifier)
         except:
-            identifier = ''
             logging.error("Potentially invalid alert")
 
-        active = cache.get(identifier)
         if not active and identifier:
             cache.set(identifier, "submitted")
 
             resp = requests.post(url=ALERTED_API, data=alert, headers=HEADERS, verify=False)
-            status_code = "%s" % resp.status_code
 
             if resp.status_code == 201:
                 result = True
 
-            #transmit_to_keen("transmit", {"result": "%s" % str(result), "sender": "%s" % name,
-            #                              "status_code": "%s" % status_code, "identifier": "%s" % identifier})
     cache.close()
     return result
-
-
-def transmit_to_keen(collection_name, msg):
-    if RACK_ENV == "production":
-        keen.add_event(collection_name, msg)
 
