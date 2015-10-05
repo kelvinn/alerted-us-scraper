@@ -52,8 +52,8 @@ def transmit(alerts):
             if resp.status_code == 201:
                 result = True
 
-            transmit_to_keen("transmit", {"result": "%s" % str(result), "sender": "%s" % name,
-                                          "status_code": "%s" % status_code, "identifier": "%s" % identifier})
+            #transmit_to_keen("transmit", {"result": "%s" % str(result), "sender": "%s" % name,
+            #                              "status_code": "%s" % status_code, "identifier": "%s" % identifier})
     cache.close()
     return result
 

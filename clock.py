@@ -27,7 +27,7 @@ def taiwan_timed_job():
     transmit(alerts)
 
 
-@sched.scheduled_job('interval', minutes=3)
+@sched.scheduled_job('interval', minutes=5)
 def noaa_timed_job():
     print "Running NOAA Spider"
     alerts = noaa()
