@@ -41,10 +41,9 @@ def transmit(alerts):
             identifier = ''
             logging.error("Potentially invalid alert")
 
-        cache_key = '%s:id' % identifier
-        active = cache.get(cache_key)
-        if not active:
-            cache.set(cache_key, "submitted")
+        active = cache.get(identifier)
+        if not active and identifier:
+            cache.set(identifier, "submitted")
 
             resp = requests.post(url=ALERTED_API, data=alert, headers=HEADERS, verify=False)
             status_code = "%s" % resp.status_code
