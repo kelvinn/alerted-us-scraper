@@ -20,7 +20,7 @@ def usgs_timed_job():
     transmit(alerts)
 
 
-@sched.scheduled_job('interval', minutes=3)
+@sched.scheduled_job('interval', minutes=10)
 def taiwan_timed_job():
     print "Running Taiwan Spider"
     alerts = taiwan()
