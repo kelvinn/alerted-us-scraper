@@ -54,7 +54,7 @@ def transmit(alerts):
                 cache.set(identifier, "submitted")
                 result = True
             else:
-                print "Unable to submit alert %s" % identifier
+                print "Unable to submit alert (%s) %s" % (str(resp.status_code), identifier)
 
     cache.close()
     return result
