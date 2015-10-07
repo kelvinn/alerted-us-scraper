@@ -53,6 +53,9 @@ def transmit(alerts):
                 print "Successfully submitted alert %s" % identifier
                 cache.set(identifier, "submitted")
                 result = True
+            elif resp.status_code == 400:
+                print "Invalid query (duplicate?) %s" % identifier
+                cache.set(identifier, "invalid")
             else:
                 print "Unable to submit alert (%s) %s" % (str(resp.status_code), identifier)
 
