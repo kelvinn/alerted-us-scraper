@@ -45,12 +45,16 @@ def transmit(alerts):
             logging.error("Potentially invalid alert")
 
         if not active and identifier:
-            cache.set(identifier, "submitted")
+
 
             resp = requests.post(url=ALERTED_API, data=alert, headers=HEADERS, verify=False)
 
             if resp.status_code == 201:
+                print "Successfully submitted alert %s" % identifier
+                cache.set(identifier, "submitted")
                 result = True
+            else:
+                print "Unable to submit alert %s" % identifier
 
     cache.close()
     return result
