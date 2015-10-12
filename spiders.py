@@ -1,7 +1,7 @@
 import requests
 from lxml import etree
 import feedparser
-from sqlite_cache import SQLiteCache
+from common import get_cache
 
 
 def rfs():
@@ -23,8 +23,7 @@ def rfs():
 
 
 def usgs():
-    # This will be erased on each deploy to Heroku, but that's OK
-    cache = SQLiteCache("/tmp/cache.db", capacity=5000)
+    cache = get_cache()
 
     # Use requests so we can mock it out while testing
     r = requests.get('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.atom')
@@ -42,13 +41,11 @@ def usgs():
                     cache.set(cache_key, "submitted")
                     resp = requests.get(link_href)
                     alerts.append(resp.content)
-    cache.close()
     return alerts
 
 
 def taiwan():
-    # This will be erased on each deploy to Heroku, but that's OK
-    cache = SQLiteCache("/tmp/cache.db", capacity=5000)
+    cache = get_cache()
 
     # Use requests so we can mock it out while testing
     r = requests.get('https://alerts.ncdr.nat.gov.tw/RssAtomFeed.ashx')
@@ -65,13 +62,11 @@ def taiwan():
                 cache.set(cache_key, "submitted")
                 resp = requests.get(link_href)
                 alerts.append(resp.content)
-    cache.close()
     return alerts
 
 
 def allny():
-    # This will be erased on each deploy to Heroku, but that's OK
-    cache = SQLiteCache("/tmp/cache.db", capacity=5000)
+    cache = get_cache()
 
     # Use requests so we can mock it out while testing
     r = requests.get('http://rss.nyalert.gov/CAP/Indices/_ALLNYCAP.xml')
@@ -86,13 +81,11 @@ def allny():
             cache.set(cache_key, "submitted")
             resp = requests.get(link_href)
             alerts.append(resp.content)
-    cache.close()
     return alerts
 
 
 def noaa():
-    # This will be erased on each deploy to Heroku, but that's OK
-    cache = SQLiteCache("/tmp/cache.db", capacity=5000)
+    cache = get_cache()
 
     # Use requests so we can mock it out while testing
     r = requests.get("https://alerts.weather.gov/cap/us.php?x=1")
@@ -109,5 +102,4 @@ def noaa():
                 cache.set(cache_key, "submitted")
                 resp = requests.get(link_href)
                 alerts.append(resp.content)
-    cache.close()
     return alerts

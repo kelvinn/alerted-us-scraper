@@ -1,10 +1,10 @@
-from _sqlite3 import OperationalError
 import unittest
 import responses
 from os import remove
 from spiders import rfs, usgs, taiwan, allny, noaa
 from common import transmit
 from capparselib.parsers import CAPParser
+
 
 
 class AppTestCase(unittest.TestCase):
@@ -15,6 +15,7 @@ class AppTestCase(unittest.TestCase):
     def tearDown(self):
         try:
             remove('/tmp/cache.db')
+            remove('/tmp/cache.db.lock')
         except OSError:
             pass
 
