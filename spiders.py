@@ -38,7 +38,7 @@ def usgs():
                 cache_key = '%s:id' % link_href
                 active = cache.get(cache_key)
                 if not active:
-                    cache.set(cache_key, "submitted")
+                    cache.set(str(cache_key), "submitted")
                     resp = requests.get(link_href)
                     alerts.append(resp.content)
     return alerts
@@ -59,7 +59,7 @@ def taiwan():
             cache_key = '%s:id' % link_href
             active = cache.get(cache_key)
             if not active:
-                cache.set(cache_key, "submitted")
+                cache.set(str(cache_key), "submitted")
                 resp = requests.get(link_href)
                 alerts.append(resp.content)
     return alerts
@@ -78,7 +78,7 @@ def allny():
         cache_key = '%s:id' % link_href
         active = cache.get(cache_key)
         if not active:
-            cache.set(cache_key, "submitted")
+            cache.set(str(cache_key), "submitted")
             resp = requests.get(link_href)
             alerts.append(resp.content)
     return alerts
@@ -99,7 +99,7 @@ def noaa():
             cache_key = '%s:id' % link_href
             active = cache.get(cache_key)
             if not active:
-                cache.set(cache_key, "submitted")
+                cache.set(str(cache_key), "submitted")
                 resp = requests.get(link_href)
                 alerts.append(resp.content)
     return alerts
