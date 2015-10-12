@@ -19,7 +19,7 @@ def get_cache():
         'dogpile.cache.dbm',
         expiration_time = 86400,
         arguments = {
-            "filename":"/tmp/cache"
+            "filename":"cache"
         }
     )
     return region

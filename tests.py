@@ -14,8 +14,8 @@ class AppTestCase(unittest.TestCase):
 
     def tearDown(self):
         try:
-            remove('/tmp/cache.db')
-            remove('/tmp/cache.db.lock')
+            remove('cache.db')
+            remove('cache.db.lock')
         except OSError:
             pass
 
