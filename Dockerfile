@@ -1,7 +1,7 @@
-FROM python:2.7
+FROM frolvlad/alpine-python2
 ENV PYTHONUNBUFFERED 1
-RUN apt-get update
-RUN apt-get install -y python-dev libxml2-dev libxslt1-dev 
+RUN apk update
+RUN apk add libxml2-dev libxslt-dev python-dev musl-dev gcc
 RUN mkdir /code
 WORKDIR /code
 ADD requirements.txt /code/
