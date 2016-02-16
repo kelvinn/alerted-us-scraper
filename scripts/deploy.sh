@@ -6,7 +6,6 @@ set -e
 # Call this like deploy.sh some-name-on-docker-cloud https://some-name.com
 
 TARGET_ENVNAME=$1
-TARGET_HOSTNAME=$2
 
 virtualenv ~/venv
 source ~/venv/bin/activate
