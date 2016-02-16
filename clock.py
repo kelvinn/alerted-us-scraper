@@ -1,9 +1,10 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from spiders import rfs, usgs, taiwan, noaa
 from common import transmit
+from pytz import utc
 
 
-sched = BlockingScheduler()
+sched = BlockingScheduler(timezone=utc)
 
 
 @sched.scheduled_job('interval', minutes=3)
