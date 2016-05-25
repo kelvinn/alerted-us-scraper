@@ -1,8 +1,5 @@
 # alerted-us-scraper
 
-# Docker dev steps
-docker-machine create --driver virtualbox default
-docker-machine ls
-eval "$(docker-machine env default)"
+[![Build Status](https://snap-ci.com/kelvinn/alerted-us-scraper/branch/master/build_image)](https://snap-ci.com/kelvinn/alerted-us-scraper/branch/master)
 
-Then look in scripts/build.sh for more commands
+Look in scripts/build.sh for more commands
