@@ -1,5 +1,5 @@
 # alerted-us-scraper
 
-[![Build Status](https://snap-ci.com/kelvinn/alerted-us-scraper/branch/master/build_image)](https://snap-ci.com/kelvinn/alerted-us-scraper/branch/master)
+[![Build Status](https://semaphoreci.com/api/v1/kelvinism/alerted-us-scraper/branches/master/badge.svg)](https://semaphoreci.com/kelvinism/alerted-us-scraper)
 
 Look in scripts/build.sh for more commands
