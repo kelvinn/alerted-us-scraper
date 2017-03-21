@@ -1,8 +1,8 @@
 from fabric.api import run
 from fabric.api import env
 
-IMAGE = "zephell/alerted-us-web-scraper"
-SERVICE = "alerted-us-web-scraper"
+IMAGE = "zephell/alerted-us-scraper"
+SERVICE = "alerted-us-scraper"
 
 def deploy(version):
     """ deploy specified version of image to cluster """
