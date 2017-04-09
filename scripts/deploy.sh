@@ -14,4 +14,4 @@ dig +short myip.opendns.com @resolver1.opendns.com
 
 pip install fabric
 
-fab -H root@$TARGET_HOST deploy:1.1.$SEMAPHORE_BUILD_NUMBER
+fab -H deploy@$TARGET_HOST deploy:1.1.$SEMAPHORE_BUILD_NUMBER
