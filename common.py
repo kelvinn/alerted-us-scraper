@@ -15,6 +15,11 @@ HEADERS = {'Content-Type': 'application/xml', 'Accept': 'application/xml',
 
 
 def get_cache():
+    """
+    A function to return a filesystem based cache object
+
+    :return:
+    """
     region = make_region().configure(
         'dogpile.cache.dbm',
         expiration_time = 86400,
@@ -42,13 +47,11 @@ def transmit(alerts):
     for alert in alerts:
         alert = alert.replace('\n', '')
 
-        name = "Unknown"
         identifier = ''
         active = False
 
         try:
             alert_list = CAPParser(alert).as_dict()
-            name = alert_list[0]['cap_sender']
             identifier = str(alert_list[0]['cap_id'])
             active = cache.get(identifier)
         except:
