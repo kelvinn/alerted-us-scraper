@@ -1,0 +1,23 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+instance_class: F1
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: 1
+  min_pending_latency: 3s
+  max_pending_latency: automatic
+  max_concurrent_requests: 50
+
+env_variables:
+   GAE_USE_SOCKETS_HTTPLIB : 'anyvalue'
+
+handlers:
+- url: /static
+  static_dir: static
+- url: /.*
+  script: main.app
+
+libraries:
+  - name: lxml
+    version: latest
