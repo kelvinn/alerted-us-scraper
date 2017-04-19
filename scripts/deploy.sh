@@ -3,15 +3,8 @@
 # Abort the script if any command fails
 set -e
 
-# Call this like deploy.sh some-name-on-docker-cloud https://some-name.com
+# Login to Google App Engine (need to enable API Admin)
+~/bin/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/home/runner/.config/gcloud/application_default_credentials.json
 
-TARGET_HOST=$1
-
-virtualenv ~/venv
-source ~/venv/bin/activate
-
-dig +short myip.opendns.com @resolver1.opendns.com
-
-pip install fabric
-
-fab -H $TARGET_USERNAME@$TARGET_HOST deploy:1.1.$SEMAPHORE_BUILD_NUMBER
+# Do the deploy
+~/bin/google-cloud-sdk/bin/gcloud app deploy --quiet
