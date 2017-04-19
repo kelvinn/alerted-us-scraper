@@ -1,1 +1,3 @@
 *.pyc
+localtesting/
+lib/*.pyc
