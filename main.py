@@ -1,11 +1,10 @@
 import logging
 
-from google.appengine.api import memcache
 from google.appengine.api import taskqueue
 from flask import Flask
 from spiders import rfs, usgs, taiwan, noaa
 from common import transmit
-from flask import Flask, render_template, request
+from flask import Flask
 
 app = Flask(__name__)
 
