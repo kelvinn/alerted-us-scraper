@@ -29,7 +29,7 @@ def transmit(alerts):
     ALERTED_USERPASS = Settings.get('ALERTED_USERPASS', "admin:password")
     ALERTED_API = Settings.get('ALERTED_API', "http://localhost:8080/api/v1/alerts/")
 
-    HEADERS = {'Content-Type': 'application/xml', 'Accept': 'application/xml',
+    HEADERS = {'Content-Type': 'application/xml',
                'Authorization': 'Basic %s' % base64.b64encode(str(ALERTED_USERPASS))}
 
     result = False
