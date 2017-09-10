@@ -1,17 +1,33 @@
 import logging
 import requests
-import requests_toolbelt.adapters.appengine
+from os import getenv
 import base64
 from capparselib.parsers import CAPParser
-from google.appengine.api import memcache
-from google.appengine.api import urlfetch
-from models import Settings
+from dogpile.cache import make_region
 
-urlfetch.set_default_fetch_deadline(300)
 
-# Use the App Engine Requests adapter. This makes sure that Requests uses
-# URLFetch.
-requests_toolbelt.adapters.appengine.monkeypatch()
+ALERTED_USERPASS = getenv('ALERTED_USERPASS', 'admin:password')
+RACK_ENV = getenv('RACK_ENV', 'development')
+ALERTED_API = getenv('ALERTED_API', 'http://localhost:8000/api/v1/alerts/')
+
+HEADERS = {'Content-Type': 'application/xml', 'Accept': 'application/xml',
+           'Authorization': 'Basic %s' % base64.b64encode(str(ALERTED_USERPASS))}
+
+
+def get_cache():
+    """
+    A function to return a filesystem based cache object
+
+    :return:
+    """
+    region = make_region().configure(
+        'dogpile.cache.dbm',
+        expiration_time = 86400,
+        arguments = {
+            "filename":"cache"
+        }
+    )
+    return region
 
 
 def transmit(alerts):
@@ -24,15 +40,9 @@ def transmit(alerts):
     #
     # Determine if the alert can be parsed as valid CAP XML
     # This will be erased on each deploy to Heroku, but that's OK
-
-    RACK_ENV = Settings.get('RACK_ENV', "development")
-    ALERTED_USERPASS = Settings.get('ALERTED_USERPASS', "admin:password")
-    ALERTED_API = Settings.get('ALERTED_API', "http://localhost:8080/api/v1/alerts/")
-
-    HEADERS = {'Content-Type': 'application/xml',
-               'Authorization': 'Basic %s' % base64.b64encode(str(ALERTED_USERPASS))}
-
+    cache = get_cache()
     result = False
+
 
     for alert in alerts:
         alert = alert.replace('\n', '')
@@ -43,9 +53,7 @@ def transmit(alerts):
         try:
             alert_list = CAPParser(alert).as_dict()
             identifier = str(alert_list[0]['cap_id'])
-            logging.info(identifier)
-            active = memcache.get(identifier)
-
+            active = cache.get(identifier)
         except:
             logging.error("Potentially invalid alert")
 
@@ -54,11 +62,12 @@ def transmit(alerts):
             resp = requests.post(url=ALERTED_API, data=alert, headers=HEADERS, verify=False)
 
             if resp.status_code == 201:
-                memcache.add(key=identifier, value="submitted", time=3600)
+                cache.set(identifier, "submitted")
                 result = True
             elif resp.status_code == 400:
                 print "Invalid query (duplicate?) %s" % identifier
-                memcache.add(key=identifier, value="submitted", time=3600)
+                cache.set(identifier, "invalid")
             else:
                 print "Unable to submit alert (%s) %s" % (str(resp.status_code), identifier)
     return result
+

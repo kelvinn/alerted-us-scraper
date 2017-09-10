@@ -1,12 +1,7 @@
 APScheduler==3.0.0
-requests
+requests==2.9.1
 capparselib==0.5.2
 pytz==2015.7
 dogpile.cache==0.5.7
 responses==0.5.1
 feedparser==5.2.1
-requests-toolbelt
-urllib3
-lxml
-flask
-chardet
