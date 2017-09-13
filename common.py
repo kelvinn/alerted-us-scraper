@@ -10,7 +10,7 @@ ALERTED_USERPASS = getenv('ALERTED_USERPASS', 'admin:password')
 RACK_ENV = getenv('RACK_ENV', 'development')
 ALERTED_API = getenv('ALERTED_API', 'http://localhost:8000/api/v1/alerts/')
 
-HEADERS = {'Content-Type': 'application/xml', 'Accept': 'application/xml',
+HEADERS = {'Content-Type': 'application/xml',
            'Authorization': 'Basic %s' % base64.b64encode(str(ALERTED_USERPASS))}
 
 
