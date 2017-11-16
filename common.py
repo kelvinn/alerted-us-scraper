@@ -59,7 +59,7 @@ def transmit(alerts):
 
         if not active and identifier:
 
-            resp = requests.post(url=ALERTED_API, data=alert, headers=HEADERS, verify=False)
+            resp = requests.post(url=ALERTED_API, data=alert, headers=HEADERS)
 
             if resp.status_code == 201:
                 cache.set(identifier, "submitted")
