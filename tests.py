@@ -6,7 +6,6 @@ from common import transmit
 from capparselib.parsers import CAPParser
 
 
-
 class AppTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -110,7 +109,6 @@ class AppTestCase(unittest.TestCase):
         alert = CAPParser(result[0]).as_dict()
         self.assertEqual('THB-Bobe2015021417044705281791366163', alert[0]['cap_id'])
     """
-
 
 
 if __name__ == '__main__':

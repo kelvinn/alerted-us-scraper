@@ -43,7 +43,7 @@ def transmit(alerts):
     cache = get_cache()
     result = False
 
-
+    logging.info("Querying cache and attempting to transmit %s alerts" % len(alerts))
     for alert in alerts:
         alert = alert.replace('\n', '')
 

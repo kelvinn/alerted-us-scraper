@@ -4,10 +4,12 @@ from fabric.api import env
 IMAGE = "zephell/alerted-us-scraper"
 SERVICE = "alerted-us-scraper"
 
+
 def deploy(version):
     """ deploy specified version of image to cluster """
     run('docker service update --image %s:%s %s' % (IMAGE, version, SERVICE))
     print "Deployed %s:%s" % (IMAGE, version)
+
 
 def docker_clean():
     """ remove containers that have exited """

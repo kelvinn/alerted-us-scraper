@@ -88,7 +88,7 @@ def noaa():
     cache = get_cache()
 
     # Use requests so we can mock it out while testing
-    r = requests.get("https://alerts.weather.gov/cap/us.php?x=1")
+    r = requests.get("https://alerts.weather.gov/cap/us.php?x=1", timeout=60)
     d = feedparser.parse(r.content)
     alerts = []
 
