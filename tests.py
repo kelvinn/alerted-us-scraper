@@ -1,10 +1,17 @@
 import unittest
-import responses
-from os import remove
-from spiders import rfs, usgs, taiwan, allny, noaa
-from common import transmit
-from capparselib.parsers import CAPParser
 
+from os import remove
+import os
+import sys
+
+# get this file's directory independent of where it's run from
+here = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(here, "vendored"))
+
+import responses
+from capparselib.parsers import CAPParser
+from common import transmit
+from spiders import rfs, usgs, taiwan, allny, noaa
 
 class AppTestCase(unittest.TestCase):
 

@@ -1,7 +1,14 @@
 import logging
-import requests
+import os
+import sys
 from os import getenv
 import base64
+
+# get this file's directory independent of where it's run from
+here = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(here, "vendored"))
+
+import requests
 from capparselib.parsers import CAPParser
 from dogpile.cache import make_region
 
@@ -13,6 +20,8 @@ ALERTED_API = getenv('ALERTED_API', 'http://localhost:8000/api/v1/alerts/')
 HEADERS = {'Content-Type': 'application/xml',
            'Authorization': 'Basic %s' % base64.b64encode(str(ALERTED_USERPASS))}
 
+REDIS_URL = getenv('REDIS_URL', 'redis://localhost:6379/0')
+
 
 def get_cache():
     """
@@ -20,13 +29,27 @@ def get_cache():
 
     :return:
     """
-    region = make_region().configure(
-        'dogpile.cache.dbm',
-        expiration_time = 86400,
-        arguments = {
-            "filename":"cache"
-        }
-    )
+    if RACK_ENV == "production":
+        region = make_region().configure(
+            'dogpile.cache.redis',
+            arguments={
+                'url': REDIS_URL,
+                'redis_expiration_time': 60 * 60 * 2,  # 2 hours
+                'distributed_lock': True
+            }
+        )
+    elif RACK_ENV == "staging":
+        region = make_region().configure(
+            'dogpile.cache.null'
+        )
+    elif RACK_ENV == "development":
+        region = make_region().configure(
+            'dogpile.cache.dbm',
+            expiration_time=86400,
+            arguments={
+                "filename": "cache.db"
+            }
+        )
     return region
 
 

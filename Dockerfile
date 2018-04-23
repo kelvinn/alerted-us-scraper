@@ -1,10 +1,9 @@
-FROM frolvlad/alpine-python2
+FROM amazonlinux
 ENV PYTHONUNBUFFERED 1
-RUN apk update
-RUN apk add libxml2-dev libxslt-dev python-dev musl-dev gcc
+RUN yum -y install python27-pip gcc python27-devel
 RUN mkdir /code
 WORKDIR /code
 ADD requirements.txt /code/
-RUN pip install -r requirements.txt
+RUN pip install -t /code/vendored/ -r /code/requirements.txt
 ADD . /code/
 CMD ["python", "clock.py"]
