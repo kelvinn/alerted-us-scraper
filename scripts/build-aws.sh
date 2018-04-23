@@ -3,5 +3,5 @@
 # Abort the script if any command fails
 set -e
 
-docker build -t alerted-us-scraper .
-docker run alerted-us-scraper python tests.py
+make lambda-deps
+make lambda-test

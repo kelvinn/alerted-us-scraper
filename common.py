@@ -29,15 +29,7 @@ def get_cache():
 
     :return:
     """
-    if RACK_ENV == "development":
-        region = make_region().configure(
-            'dogpile.cache.dbm',
-            expiration_time=86400,
-            arguments={
-                "filename": "cache"
-            }
-        )
-    elif RACK_ENV == "production":
+    if RACK_ENV == "production":
         region = make_region().configure(
             'dogpile.cache.redis',
             arguments={
@@ -46,7 +38,18 @@ def get_cache():
                 'distributed_lock': True
             }
         )
-
+    elif RACK_ENV == "staging":
+        region = make_region().configure(
+            'dogpile.cache.null'
+        )
+    elif RACK_ENV == "development":
+        region = make_region().configure(
+            'dogpile.cache.dbm',
+            expiration_time=86400,
+            arguments={
+                "filename": "cache.db"
+            }
+        )
     return region
 
 

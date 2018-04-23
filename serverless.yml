@@ -19,6 +19,7 @@ service: alerted-us-scraper
 
 provider:
   name: aws
+  stage: production
   runtime: python2.7
 
 # you can overwrite defaults here
