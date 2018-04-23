@@ -54,6 +54,7 @@ package:
     - main.py
     - spiders.py
     - clock.py
+    - vendored/**
   exclude:
     - requirements.txt
     - serverless.yml

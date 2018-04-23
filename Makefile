@@ -5,7 +5,6 @@ compile:
 	/tmp/venv/bin/pip install -r requirements.txt
 	cp -r /tmp/venv/lib/python2.7/site-packages/. ./vendored
 	cp -r /tmp/venv/lib64/python2.7/site-packages/. ./vendored
-	pip install
 
 test:
 	python tests.py
