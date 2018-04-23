@@ -35,7 +35,7 @@ def usgs():
         for link in links:
             if link['type'] == 'application/cap+xml':
                 link_href = link['href']
-                cache_key = '%s:id' % link_href
+                cache_key = str('%s:id' % link_href)
                 active = cache.get(cache_key)
                 if not active:
                     cache.set(str(cache_key), "submitted")
@@ -56,7 +56,7 @@ def taiwan():
         links = entry['links']
         for link in links:
             link_href = link['href']
-            cache_key = '%s:id' % link_href
+            cache_key = str('%s:id' % link_href)
             active = cache.get(cache_key)
             if not active:
                 cache.set(str(cache_key), "submitted")
@@ -75,7 +75,7 @@ def allny():
 
     for entry in d['entries']:
         link_href = entry['href']
-        cache_key = '%s:id' % link_href
+        cache_key = str('%s:id' % link_href)
         active = cache.get(cache_key)
         if not active:
             cache.set(str(cache_key), "submitted")
@@ -96,7 +96,7 @@ def noaa():
         links = entry['links']
         for link in links:
             link_href = link['href']
-            cache_key = '%s:id' % link_href
+            cache_key = str('%s:id' % link_href)
             active = cache.get(cache_key)
             if not active:
                 cache.set(str(cache_key), "submitted")

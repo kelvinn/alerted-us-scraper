@@ -5,3 +5,5 @@ pytz==2017.2
 dogpile.cache==0.6.4
 responses==0.8.1
 feedparser==5.2.1
+scrapy
+redis
