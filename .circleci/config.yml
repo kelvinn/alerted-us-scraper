@@ -36,19 +36,19 @@ jobs:
       - run:
           name: install application dependencies
           command: |
-            virtualenv venv
-            . ./venv/bin/activate
+            mkdir /tmp/workspace
+            virtualenv /tmp/workspacevenv
+            . /tmp/workspace/venv/bin/activate
             pip install -r requirements.txt
 
-
       - persist_to_workspace:
-          root: .
+          root: /tmp/workspace
           paths:
             - venv
 
       - save_cache:
           paths:
-            - /tmp/venv
+            - /tmp/workspace/venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
   test:
@@ -65,8 +65,6 @@ jobs:
       - run:
           name: activate virtual environment
           command: |
-            ls /tmp/workspace/venv
-            ls /tmp/workspace/venv/lib/python2.7/site-packages/
             . /tmp/workspace/venv/bin/activate
 
       - run:
