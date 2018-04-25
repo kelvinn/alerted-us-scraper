@@ -60,7 +60,7 @@ jobs:
 
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /tmp/venv
+          at: /tmp/workspace
 
       # Download and cache dependencies
       - restore_cache:
@@ -72,7 +72,7 @@ jobs:
       - run:
           name: activate virtual environment
           command: |
-            . /tmp/venv/bin/activate
+            . /tmp/workspace/venv/bin/activate
 
       - run:
           name: run tests
@@ -94,7 +94,7 @@ jobs:
 
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /tmp/venv
+          at: /tmp/workspace/venv
 
       # Download and cache dependencies
       - restore_cache:
