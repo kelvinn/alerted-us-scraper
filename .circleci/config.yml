@@ -70,13 +70,6 @@ jobs:
           - v1-dependencies-
 
       - run:
-          name: list some directories
-          command: |
-            ls -la /tmp/workspaces
-            pwd
-            ls -la .
-
-      - run:
           name: activate virtual environment
           command: |
             . /tmp/venv/bin/activate
