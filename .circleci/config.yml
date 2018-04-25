@@ -92,7 +92,7 @@ jobs:
       - run:
           name: Upload to Serverless
           command: |
-          . ~/.nvm/nvm.sh
+            . ~/.nvm/nvm.sh
             serverless deploy
 
 workflows:
