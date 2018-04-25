@@ -66,6 +66,7 @@ jobs:
           name: activate virtual environment
           command: |
             ls /tmp/workspace/venv
+            ls /tmp/workspace/venv/lib/python2.7/site-packages/
             . /tmp/workspace/venv/bin/activate
 
       - run:
