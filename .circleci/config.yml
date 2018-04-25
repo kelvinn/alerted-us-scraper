@@ -39,7 +39,7 @@ jobs:
             virtualenv venv
             . ./venv/bin/activate
             pip install -r requirements.txt
-            ls -la
+
 
       - persist_to_workspace:
           root: .
@@ -65,7 +65,7 @@ jobs:
       - run:
           name: activate virtual environment
           command: |
-            ls /tmp/workspace
+            ls /tmp/workspace/venv
             . /tmp/workspace/venv/bin/activate
 
       - run:
