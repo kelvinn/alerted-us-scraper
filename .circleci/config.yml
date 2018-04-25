@@ -72,6 +72,7 @@ jobs:
       - run:
           name: activate virtual environment
           command: |
+            ls /tmp/workspace
             . /tmp/venv/bin/activate
 
       - run:
@@ -90,10 +91,6 @@ jobs:
       - image: amazonlinux
     steps:
       - checkout
-
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: /tmp/workspace
 
       # Download and cache dependencies
       - restore_cache:
