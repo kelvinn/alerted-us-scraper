@@ -36,18 +36,18 @@ jobs:
       - run:
           name: install application dependencies
           command: |
-            virtualenv venv
-            . ./venv/bin/activate
+            virtualenv /tmp/venv
+            . /tmp/venv/bin/activate
             pip install -r requirements.txt
             ls -la
 
       - save_cache:
           paths:
-            - ./venv
+            - /tmp/venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       - persist_to_workspace:
-          root: .
+          root: /tmp
           paths:
             - venv
 
