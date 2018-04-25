@@ -72,7 +72,6 @@ jobs:
       - run:
           name: run tests
           command: |
-            . /tmp/workspace/venv/bin/activate
             python tests.py
 
       - store_artifacts:
