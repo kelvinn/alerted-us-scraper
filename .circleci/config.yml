@@ -72,19 +72,19 @@ jobs:
       - run:
           name: list some directories
           command: |
-            ls -la /tmp
+            ls -la /tmp/workspaces
             pwd
             ls -la .
 
       - run:
           name: activate virtual environment
           command: |
-            . /tmp/workspace/venv/bin/activate
+            . /tmp/venv/bin/activate
 
       - run:
           name: run tests
           command: |
-            . /tmp/workspace/venv/bin/activate
+            . /tmp/venv/bin/activate
             python tests.py
 
       - store_artifacts:
@@ -100,7 +100,7 @@ jobs:
 
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /tmp/workspace/venv
+          at: /tmp/workspace
 
       # Download and cache dependencies
       - restore_cache:
