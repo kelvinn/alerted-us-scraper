@@ -2,22 +2,15 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: amazonlinux
 
 version: 2
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: amazonlinux
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
-    working_directory: ~/repo
-
+    <<: *defaults
     steps:
       - checkout
 
@@ -27,6 +20,7 @@ jobs:
           - v1-dependencies-{{ checksum "requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+
       - run:
           name: install system packages
           command: |
@@ -47,23 +41,28 @@ jobs:
             virtualenv /tmp/venv
             . /tmp/venv/bin/activate
             pip install -r requirements.txt
-
-      - run:
-          name: copy to vendored directory
-          command: |
-            cp -r /tmp/venv/lib/python2.7/site-packages/. ./vendored
-            cp -r /tmp/venv/lib64/python2.7/site-packages/. ./vendored
+            ls -la
 
       - save_cache:
           paths:
             - /tmp/venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
+  test:
+    <<: *defaults
+    steps:
 
-      # run tests!
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
       - run:
           name: run tests
           command: |
+            ls -la
             . /tmp/venv/bin/activate
             python tests.py
 
@@ -72,11 +71,23 @@ jobs:
           destination: test-reports
 
   deploy:
-    docker:
-        - image: amazonlinux
-    working_directory: ~/repo
+    <<: *defaults
+
     steps:
       - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: copy to vendored directory
+          command: |
+            cp -r /tmp/venv/lib/python2.7/site-packages/. ./vendored
+            cp -r /tmp/venv/lib64/python2.7/site-packages/. ./vendored
 
       - run:
           name: Show some files
@@ -89,12 +100,12 @@ jobs:
 
 workflows:
   version: 2
-  build-and-deploy:
+  build-test-and-deploy:
     jobs:
       - build
-      - deploy:
+      - test:
           requires:
             - build
-          filters:
-            branches:
-              only: master
+      - deploy:
+          requires:
+            - test
