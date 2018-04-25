@@ -63,13 +63,10 @@ jobs:
           at: /tmp/workspace
 
       - run:
-          name: activate virtual environment
-          command: |
-            . /tmp/workspace/venv/bin/activate
-
-      - run:
           name: run tests
           command: |
+            . /tmp/workspace/venv/bin/activate
+            cat /tmp/workspace/venv/bin/activate
             python tests.py
 
       - store_artifacts:
