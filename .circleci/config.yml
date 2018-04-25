@@ -51,7 +51,8 @@ jobs:
   test:
     <<: *defaults
     steps:
-
+      - checkout
+      
       # Download and cache dependencies
       - restore_cache:
           keys:
