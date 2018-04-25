@@ -78,7 +78,6 @@ jobs:
           name: run tests
           command: |
             ls -la
-            . /tmp/venv/bin/activate
             python tests.py
 
       - store_artifacts:
