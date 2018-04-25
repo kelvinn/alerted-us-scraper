@@ -20,12 +20,12 @@ jobs:
           - v1-dependencies-
 
       - run:
-          name: install system packages
+          name: Install system packages
           command: |
             yum install -y gcc libffi-devel openssl-devel python27-virtualenv
 
       - run:
-          name: install nvm node and serverless
+          name: Install nvm node and serverless
           command: |
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
             . ~/.nvm/nvm.sh
@@ -34,7 +34,7 @@ jobs:
             npm install serverless -g
 
       - run:
-          name: install application dependencies
+          name: Install application dependencies
           command: |
             mkdir /tmp/workspace
             virtualenv /tmp/workspace/venv
@@ -63,7 +63,7 @@ jobs:
           at: /tmp/workspace
 
       - run:
-          name: run tests
+          name: Run tests
           command: |
             . /tmp/workspace/venv/bin/activate
             python tests.py
@@ -84,19 +84,15 @@ jobs:
           at: /tmp/workspace
 
       - run:
-          name: copy to vendored directory
+          name: Copy to vendored directory
           command: |
             cp -r /tmp/workspace/venv/lib/python2.7/site-packages/. ./vendored
             cp -r /tmp/workspace/venv/lib64/python2.7/site-packages/. ./vendored
 
       - run:
-          name: Show some files
-          command: pwd && ls -la
-
-      - run:
-          name: Show the vendored directory
-          command: |  # this command is framework-dependent and may vary
-            ls -la ./vendored
+          name: Upload to Serverless
+          command: |
+            serverless deploy
 
 workflows:
   version: 2
