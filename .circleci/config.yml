@@ -32,26 +32,38 @@ jobs:
             yum install -y gcc libffi-devel openssl-devel python27-virtualenv
 
       - run:
-          name: install dependencies
+          name: install nvm node and serverless
           command: |
-            virtualenv venv
-            . venv/bin/activate
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+            . ~/.nvm/nvm.sh
+            nvm install 6.11.5
+            node -e "console.log('Running Node.js ' + process.version)"
+            npm install serverless -g
+
+      - run:
+          name: install application dependencies
+          command: |
+            virtualenv /tmp/venv
+            . /tmp/venv/bin/activate
             pip install -r requirements.txt
+
+      - run:
+          name: copy to vendored directory
+          command: |
+            cp -r /tmp/venv/lib/python2.7/site-packages/. ./vendored
+            cp -r /tmp/venv/lib64/python2.7/site-packages/. ./vendored
 
       - save_cache:
           paths:
-            - ./venv
+            - /tmp/venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
+
       # run tests!
-      # this example uses Django's built-in test-runner
-      # other common Python testing frameworks include pytest and nose
-      # https://pytest.org
-      # https://nose.readthedocs.io
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
+            . /tmp/venv/bin/activate
             python tests.py
 
       - store_artifacts:
