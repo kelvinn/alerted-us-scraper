@@ -36,18 +36,18 @@ jobs:
       - run:
           name: install application dependencies
           command: |
-            virtualenv /tmp/venv
-            . /tmp/venv/bin/activate
+            virtualenv venv
+            . ./venv/bin/activate
             pip install -r requirements.txt
             ls -la
 
       - save_cache:
           paths:
-            - /tmp/venv
+            - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       - persist_to_workspace:
-          root: /tmp
+          root: /tmp/workspace
           paths:
             - venv
 
@@ -70,6 +70,13 @@ jobs:
           - v1-dependencies-
 
       - run:
+          name: list some directories
+          command: |
+            ls -la /tmp
+            pwd
+            ls -la .
+
+      - run:
           name: activate virtual environment
           command: |
             . /tmp/workspace/venv/bin/activate
@@ -77,9 +84,6 @@ jobs:
       - run:
           name: run tests
           command: |
-            ls -la
-            ls -la /tmp/workspace
-            ls -la /tmp/workspace/venv
             . /tmp/workspace/venv/bin/activate
             python tests.py
 
