@@ -25,15 +25,6 @@ jobs:
             yum install -y gcc libffi-devel openssl-devel python27-virtualenv
 
       - run:
-          name: Install nvm node and serverless
-          command: |
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
-            . ~/.nvm/nvm.sh
-            nvm install 6.11.5
-            node -e "console.log('Running Node.js ' + process.version)"
-            npm install serverless -g
-
-      - run:
           name: Install application dependencies
           command: |
             mkdir /tmp/workspace
@@ -88,6 +79,15 @@ jobs:
           command: |
             cp -r /tmp/workspace/venv/lib/python2.7/site-packages/. ./vendored
             cp -r /tmp/workspace/venv/lib64/python2.7/site-packages/. ./vendored
+
+      - run:
+          name: Install nvm node and serverless
+          command: |
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+            . ~/.nvm/nvm.sh
+            nvm install 6.11.5
+            node -e "console.log('Running Node.js ' + process.version)"
+            npm install serverless -g
 
       - run:
           name: Upload to Serverless
