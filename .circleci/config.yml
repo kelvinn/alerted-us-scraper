@@ -87,11 +87,12 @@ jobs:
             . ~/.nvm/nvm.sh
             nvm install 6.11.5
             node -e "console.log('Running Node.js ' + process.version)"
-            npm install serverless -g
+            npm install -g serverless
 
       - run:
           name: Upload to Serverless
           command: |
+          . ~/.nvm/nvm.sh
             serverless deploy
 
 workflows:
