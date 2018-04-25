@@ -13,6 +13,7 @@ from capparselib.parsers import CAPParser
 from common import transmit
 from spiders import rfs, usgs, taiwan, allny, noaa
 
+
 class AppTestCase(unittest.TestCase):
 
     def setUp(self):

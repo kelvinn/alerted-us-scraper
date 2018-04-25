@@ -78,6 +78,9 @@ jobs:
           name: run tests
           command: |
             ls -la
+            ls -la /tmp/workspace
+            ls -la /tmp/workspace/venv
+            . /tmp/workspace/venv/bin/activate
             python tests.py
 
       - store_artifacts:
