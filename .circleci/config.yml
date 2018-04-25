@@ -37,7 +37,7 @@ jobs:
           name: install application dependencies
           command: |
             mkdir /tmp/workspace
-            virtualenv /tmp/workspacevenv
+            virtualenv /tmp/workspace/venv
             . /tmp/workspace/venv/bin/activate
             pip install -r requirements.txt
 
