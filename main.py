@@ -30,6 +30,7 @@ def app():
         alerts = fn()
         transmit(alerts, current_entity)
 
+
 def handler(event, context):
     log.debug("Received event {}".format(json.dumps(event)))
     response = {}
