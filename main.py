@@ -21,12 +21,14 @@ from common import transmit
 
 # Get the current active segment or subsegment from the main thread.
 current_entity = xray_recorder.get_trace_entity()
+functions = [rfs, usgs, taiwan, noaa]
+
 
 def app():
-    print "Running NOAA Spider at %s" % datetime.now()
-    alerts = noaa(current_entity)
-    transmit(alerts, current_entity)
-
+    print "Running spiders at %s" % datetime.now()
+    for fn in functions:
+        alerts = fn()
+        transmit(alerts, current_entity)
 
 def handler(event, context):
     log.debug("Received event {}".format(json.dumps(event)))
