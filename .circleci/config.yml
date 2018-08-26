@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Install system packages
           command: |
-            yum install -y gcc libffi-devel openssl-devel python-virtualenv
+            yum install -y gcc libffi-devel openssl-devel python-virtualenv python2-setuptools
 
       - run:
           name: Install application dependencies
