@@ -50,14 +50,15 @@ jobs:
     steps:
       - checkout
 
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: /tmp/workspace
-
       - run:
           name: Install system packages
           command: |
             yum install -y gcc libffi-devel openssl-devel python-virtualenv python2-setuptools libxml2-devel libxml2-python libxslt-devel tar gzip
+
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: /tmp/workspace
+
 
       - run:
           name: Run tests
