@@ -77,6 +77,12 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install system packages
+          command: |
+            yum install -y python-virtualenv python2-setuptools tar gzip
+
+
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /tmp/workspace
