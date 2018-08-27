@@ -13,8 +13,6 @@ sys.path.append(os.path.join(here, "vendored"))
 
 from aws_xray_sdk.core import xray_recorder
 
-
-
 from spiders import rfs, usgs, taiwan, noaa
 from common import transmit
 
@@ -36,9 +34,13 @@ def handler(event, context):
     response = {}
 
     try:
-        print "Running NOAA Spider at %s" % datetime.now()
-        alerts = noaa()
-        response['result'] = transmit(alerts)
+        print "Running spiders at %s" % datetime.now()
+        results = []
+        for fn in functions:
+            alerts = fn()
+            results.append(transmit(alerts, current_entity))
+
+        response['result'] = results
     except Exception as e:
         response['result'] = str(e)
 
