@@ -55,6 +55,11 @@ jobs:
           at: /tmp/workspace
 
       - run:
+          name: Install system packages
+          command: |
+            yum install -y gcc libffi-devel openssl-devel python-virtualenv python2-setuptools libxml2-devel libxml2-python libxslt-devel tar gzip
+
+      - run:
           name: Run tests
           command: |
             . /tmp/workspace/venv/bin/activate
