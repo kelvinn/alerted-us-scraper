@@ -7,5 +7,5 @@ dogpile.cache==0.6.5
 responses==0.9.0
 feedparser==5.2.1
 scrapy==1.5.0
-aws-xray-sdk==1.1
+aws-xray-sdk==2.1.0
 
