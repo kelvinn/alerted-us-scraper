@@ -11,7 +11,7 @@ sys.path.append(os.path.join(here, "vendored"))
 import responses
 from capparselib.parsers import CAPParser
 from common import transmit
-from spiders import rfs, usgs, taiwan, allny, noaa
+from spiders import rfs, usgs, taiwan, sweden, noaa
 
 
 class AppTestCase(unittest.TestCase):
@@ -59,7 +59,7 @@ class AppTestCase(unittest.TestCase):
               content_type='application/xml')
 
         result = usgs()
-        alert = CAPParser(result[0]).as_dict()
+        alert = CAPParser(result[0].decode()).as_dict()
         self.assertEqual('USGS-earthquakes-nn00482627.703198.482627.20150214T025331.156Z.3', alert[0]['cap_id'])
 
     @responses.activate
@@ -76,7 +76,7 @@ class AppTestCase(unittest.TestCase):
               content_type='application/xml')
 
         result = taiwan()
-        alert = CAPParser(result[0]).as_dict()
+        alert = CAPParser(result[0].decode()).as_dict()
         self.assertEqual('THB-Bobe2015021417044705281791366163', alert[0]['cap_id'])
 
     @responses.activate
@@ -94,8 +94,9 @@ class AppTestCase(unittest.TestCase):
 
         result = noaa()
 
-        alert = CAPParser(result[0]).as_dict()
+        alert = CAPParser(result[0].decode()).as_dict()
         self.assertEqual('NOAA-NWS-ALERTS-AK12539CADCECC.WinterWeatherAdvisory.12539CBBD120AK.AFGWSWNSB.bda790b45bcda3f2c9f1d0a1bdec3ec3', alert[0]['cap_id'])
+
 
     # This is waiting on NY to clean up their CAP feeds
     """

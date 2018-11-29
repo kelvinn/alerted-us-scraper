@@ -9,7 +9,7 @@ def rfs():
 
     r.encoding = 'utf-8'
 
-    tree = etree.fromstring(r.content.replace('\n          ', ''))
+    tree = etree.fromstring(r.content.decode().replace('\n          ', '').encode())
 
     scraped = tree.xpath(
         '/edxlde:EDXLDistribution[1]/edxlde:contentObject/edxlde:xmlContent/edxlde:embeddedXMLContent/cap:alert',
@@ -65,6 +65,28 @@ def taiwan():
     return alerts
 
 
+def sweden():
+    cache = get_cache()
+
+    # Use requests so we can mock it out while testing
+    r = requests.get('http://api.krisinformation.se/v1/feed?format=xml')
+    d = feedparser.parse(r.content)
+    alerts = []
+
+    for entry in d['entries']:
+        links = entry['links']
+        for link in links:
+            link_href = link['href']
+            cache_key = str('%s:id' % link_href)
+            active = cache.get(cache_key)
+            if not active:
+                cache.set(str(cache_key), "submitted")
+                resp = requests.get(link_href)
+                
+                alerts.append(resp.content)
+    return alerts
+
+
 def allny():
     cache = get_cache()
 
@@ -103,3 +125,7 @@ def noaa():
                 resp = requests.get(link_href)
                 alerts.append(resp.content)
     return alerts
+
+
+
+

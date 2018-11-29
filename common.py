@@ -20,10 +20,9 @@ RACK_ENV = getenv('RACK_ENV', 'development')
 ALERTED_API = getenv('ALERTED_API', 'http://localhost:8000/api/v1/alerts/')
 
 HEADERS = {'Content-Type': 'application/xml',
-           'Authorization': 'Basic %s' % base64.b64encode(str(ALERTED_USERPASS))}
+           'Authorization': 'Basic %s' % base64.b64encode(ALERTED_USERPASS.encode())}
 
 REDIS_URL = getenv('REDIS_URL', 'redis://localhost:6379/0')
-
 
 
 def get_cache():
@@ -95,10 +94,10 @@ def transmit(alerts, trace_entity=None):
                 cache.set(identifier, "submitted")
                 result = True
             elif resp.status_code == 400:
-                print "Invalid query (duplicate?) %s" % identifier
+                print("Invalid query (duplicate?) %s" % identifier)
                 cache.set(identifier, "invalid")
             else:
-                print "Unable to submit alert (%s) %s" % (str(resp.status_code), identifier)
+                print("Unable to submit alert (%s) %s" % (str(resp.status_code), identifier))
 
     # prevent thread pollution
     xray_recorder.clear_trace_entities()

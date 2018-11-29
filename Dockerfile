@@ -1,6 +1,6 @@
 FROM amazonlinux
 ENV PYTHONUNBUFFERED 1
-RUN yum -y install python27-pip gcc python27-devel
+RUN yum -y install python-pip gcc python-devel
 RUN mkdir /code
 WORKDIR /code
 ADD requirements.txt /code/
