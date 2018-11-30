@@ -3,7 +3,7 @@ capparselib==0.5.4.post4
 requests==2.20.1
 pytz==2018.7
 redis==2.10.6
-dogpile.cache==0.6.5
+dogpile.cache==0.6.8
 responses==0.10.4
 feedparser==5.2.1
 scrapy==1.5.1
