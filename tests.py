@@ -1,6 +1,5 @@
 import unittest
 
-from os import remove
 import os
 import sys
 
@@ -14,17 +13,18 @@ from common import transmit
 from spiders import rfs, usgs, taiwan, sweden, noaa
 
 
+def cleanup():
+    to_remove_list = ["cache", "cache.db", "cache.rw.lock"]
+    [os.remove(item) for item in to_remove_list if os.path.exists(item)]
+
+
 class AppTestCase(unittest.TestCase):
 
     def setUp(self):
-        pass
+        cleanup()
 
     def tearDown(self):
-        try:
-            remove('cache.db')
-            remove('cache.db.lock')
-        except OSError:
-            pass
+        cleanup()
 
     @responses.activate
     def test_rfs_get(self):
@@ -76,7 +76,7 @@ class AppTestCase(unittest.TestCase):
               content_type='application/xml')
 
         result = taiwan()
-        alert = CAPParser(result[0].decode()).as_dict()
+        alert = CAPParser(result[0].decode('utf-8')).as_dict()
         self.assertEqual('THB-Bobe2015021417044705281791366163', alert[0]['cap_id'])
 
     @responses.activate

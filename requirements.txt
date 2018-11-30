@@ -3,8 +3,8 @@ requests==2.18.4
 capparselib==0.5.4.post4
 pytz==2018.4
 redis==2.10.6
-dogpile.cache==0.6.8
+dogpile.cache==0.6.5
 responses==0.9.0
 feedparser==5.2.1
 aws-xray-sdk==1.1
-scrapy==1.5.1
+scrapy
