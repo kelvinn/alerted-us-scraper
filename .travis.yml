@@ -4,12 +4,9 @@ language: minimal
 services:
   - docker
 
-before_install:
+before_script:
   - scripts/build-aws.sh
 
-jobs:
-  include:
-    - stage: test
-      script: scripts/test-aws.sh
-    - stage: deploy
-      script: scripts/deploy-aws.sh
+script:
+  - scripts/test-aws.sh
+  - scripts/deploy-aws.sh
