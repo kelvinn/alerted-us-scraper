@@ -28,11 +28,12 @@ class AppTestCase(unittest.TestCase):
 
     @responses.activate
     def test_rfs_get(self):
+        with open(r'data/bushfire.cap') as f:
+            sample = f.read()
 
-        sample = open(r'data/bushfire.cap', 'r').read()
         responses.add(responses.GET, 'http://www.rfs.nsw.gov.au/feeds/majorIncidentsCAP.xml',
-              body=sample, status=200,
-              content_type='application/xml')
+                      body=sample, status=200,
+                      content_type='application/xml')
         result = rfs()
         self.assertEqual(59, len(result))
 
@@ -48,15 +49,19 @@ class AppTestCase(unittest.TestCase):
     @responses.activate
     def test_usgs_get(self):
 
-        sample = open(r'data/usgs.atom', 'r').read()
-        responses.add(responses.GET, 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.atom',
-              body=sample, status=200,
-              content_type='application/xml')
+        with open(r'data/usgs.atom') as f:
+            sample = f.read()
 
-        usgs_sample_cap = open(r'data/usgs.cap', 'r').read()
+        responses.add(responses.GET, 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.atom',
+                      body=sample, status=200,
+                      content_type='application/xml')
+
+        with open(r'data/usgs.cap') as f:
+            usgs_sample_cap = f.read()
+
         responses.add(responses.GET, 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/nn00482627.cap',
-              body=usgs_sample_cap, status=200,
-              content_type='application/xml')
+                      body=usgs_sample_cap, status=200,
+                      content_type='application/xml')
 
         result = usgs()
         alert = CAPParser(result[0].decode()).as_dict()
@@ -64,16 +69,19 @@ class AppTestCase(unittest.TestCase):
 
     @responses.activate
     def test_taiwan_get(self):
+        with open(r'data/taiwan.atom') as f:
+            sample = f.read()
 
-        sample = open(r'data/taiwan.atom', 'r').read()
         responses.add(responses.GET, 'https://alerts.ncdr.nat.gov.tw/RssAtomFeed.ashx',
-              body=sample, status=200,
-              content_type='application/xml')
+                      body=sample, status=200,
+                      content_type='application/xml')
 
-        usgs_sample_cap = open(r'data/taiwan.cap', 'r').read()
+        with open(r'data/taiwan.cap') as f:
+            usgs_sample_cap = f.read()
+
         responses.add(responses.GET, 'https://alerts.ncdr.nat.gov.tw/Capstorage/THB/2015/roadClose/THB-Bobe2015021417044705281791366163.cap',
-              body=usgs_sample_cap, status=200,
-              content_type='application/xml')
+                      body=usgs_sample_cap, status=200,
+                      content_type='application/xml')
 
         result = taiwan()
         alert = CAPParser(result[0].decode('utf-8')).as_dict()
@@ -81,16 +89,19 @@ class AppTestCase(unittest.TestCase):
 
     @responses.activate
     def test_noaa_get(self):
+        with open(r'data/noaa.atom') as f:
+            sample = f.read()
 
-        sample = open(r'data/noaa.atom', 'r').read()
         responses.add(responses.GET, "https://alerts.weather.gov/cap/us.php",
-              body=sample, status=200,
-              content_type='application/xml')
+                      body=sample, status=200,
+                      content_type='application/xml')
 
-        noaa_sample_cap = open(r'data/noaa.cap', 'r').read()
+        with open(r'data/noaa.cap') as f:
+            noaa_sample_cap = f.read()
+
         responses.add(responses.GET, 'http://alerts.weather.gov/cap/wwacapget.php',
-              body=noaa_sample_cap, status=200,
-              content_type='application/xml')
+                      body=noaa_sample_cap, status=200,
+                      content_type='application/xml')
 
         result = noaa()
 

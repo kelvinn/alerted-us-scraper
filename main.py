@@ -23,7 +23,7 @@ functions = [rfs, usgs, taiwan, noaa]
 
 
 def app():
-    print "Running spiders at %s" % datetime.now()
+    print("Running spiders at %s" % datetime.now())
     for fn in functions:
         alerts = fn()
         transmit(alerts, current_entity)
@@ -34,7 +34,7 @@ def handler(event, context):
     response = {}
 
     try:
-        print "Running spiders at %s" % datetime.now()
+        print("Running spiders at %s" % datetime.now())
         results = []
         for fn in functions:
             alerts = fn()
