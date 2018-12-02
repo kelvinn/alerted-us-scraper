@@ -3,11 +3,10 @@ language: python
 services:
   - docker
 
-script:
-  - scripts/build-aws.sh
-
 jobs:
   include:
+    - stage: build
+      script: scripts/build-aws.sh
     - stage: test
       script: scripts/test-aws.sh
     - stage: deploy
