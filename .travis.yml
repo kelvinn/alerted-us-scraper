@@ -3,8 +3,12 @@ language: python
 services:
   - docker
 
-before_install:
-  - make lambda-deps
-
 script:
-  - make lambda-test
+  - scripts/build-aws.sh
+
+jobs:
+  include:
+    - stage: test
+      script: scripts/test-aws.sh
+    - stage: deploy
+      script: scripts/deploy-aws.sh
