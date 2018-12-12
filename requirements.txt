@@ -2,7 +2,7 @@ APScheduler==3.5.3
 capparselib==0.5.4.post4
 requests==2.20.1
 pytz==2018.7
-dogpile.cache==0.6.8
+dogpile.cache==0.7.1
 redis==3.0.1
 responses==0.10.4
 feedparser==5.2.1
