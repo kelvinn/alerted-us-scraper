@@ -4,7 +4,7 @@ requests==2.20.1
 pytz==2018.7
 dogpile.cache==0.6.8
 redis==3.0.1
-responses==0.10.4
+responses==0.10.5
 feedparser==5.2.1
 scrapy==1.5.1
 aws-xray-sdk==2.2.0
