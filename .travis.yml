@@ -9,3 +9,9 @@ before_script:
 
 script:
   - scripts/test.sh
+
+deploy:
+  provider: script
+  script: bash scripts/deploy-aws.sh
+  on:
+    branch: master
