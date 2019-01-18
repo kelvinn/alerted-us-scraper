@@ -1,14 +1,13 @@
 language: generic
 
-
 services:
   - docker
 
 before_script:
-  - scripts/build.sh
+  - scripts/build-aws.sh
 
 script:
-  - scripts/test.sh
+  - scripts/test-aws.sh
 
 deploy:
   provider: script
