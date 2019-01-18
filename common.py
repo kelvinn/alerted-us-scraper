@@ -1,18 +1,9 @@
 import logging
-import os
-import sys
 from os import getenv
 import base64
-
-# get this file's directory independent of where it's run from
-here = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(here, "vendored"))
-
 import requests
 from capparselib.parsers import CAPParser
 from dogpile.cache import make_region
-from aws_xray_sdk.core import xray_recorder
-from aws_xray_sdk.core import patch
 
 
 ALERTED_USERPASS = getenv('ALERTED_USERPASS', 'admin:password')
@@ -55,7 +46,7 @@ def get_cache():
     return region
 
 
-def transmit(alerts, trace_entity=None):
+def transmit(alerts):
     """
     A function to transmit XML to Alerted web service
 
@@ -65,9 +56,6 @@ def transmit(alerts, trace_entity=None):
     #
     # Determine if the alert can be parsed as valid CAP XML
     # This will be erased on each deploy to Heroku, but that's OK
-
-    # Set the parent X-Ray entity for the worker thread.
-    xray_recorder.set_trace_entity(trace_entity)
 
     cache = get_cache()
     result = False
@@ -99,6 +87,4 @@ def transmit(alerts, trace_entity=None):
             else:
                 print("Unable to submit alert (%s) %s" % (str(resp.status_code), identifier))
 
-    # prevent thread pollution
-    xray_recorder.clear_trace_entities()
     return result
