@@ -1,5 +1,5 @@
 APScheduler==3.5.3
-capparselib==0.6.0
+capparselib==0.6.1
 requests==2.21.0
 pytz==2018.9
 dogpile.cache==0.7.1
