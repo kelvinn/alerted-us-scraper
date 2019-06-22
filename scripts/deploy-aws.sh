@@ -3,5 +3,7 @@
 # Abort the script if any command fails
 set -e
 
+source .venv/bin/activate
 npm install -g serverless
-serverless deploy
+npm install --save serverless-python-requirements
+sls deploy

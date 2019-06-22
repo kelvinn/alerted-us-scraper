@@ -17,6 +17,9 @@ service: alerted-us-scraper
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+plugins:
+  - serverless-python-requirements
+
 provider:
   name: aws
   stage: production
@@ -51,6 +54,8 @@ package:
     - Dockerfile
     - README.md
     - LICENSE.txt
+    - .venv/**
+    - .serverless/**
 
 # now the good stuff: we can define our functions here
 functions:
@@ -59,9 +64,4 @@ functions:
     # and "handler" indicates the function
     handler: main.handler
     events:
-      - http:
-          # instead of / you can define any HTTP path you like
-          # since we just have one endpoint I used /
-          path: /
-          method: get
       - schedule: rate(10 minutes)
