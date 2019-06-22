@@ -19,6 +19,7 @@ var/
 # Serverless directories
 .serverless
 vendored/
+.venv/
 *.pyc
 cache
 cache.db.rw.lock
