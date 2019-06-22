@@ -43,3 +43,7 @@ def handler(event, context):
         'statusCode': 200,
         'body': json.dumps(response)
     }
+
+
+if __name__ == "__main__":
+    app()

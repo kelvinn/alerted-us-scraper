@@ -11,4 +11,4 @@ WORKDIR /code
 ADD requirements.txt /code/
 RUN pip install -r /code/requirements.txt
 ADD . /code/
-CMD ["python", "clock.py"]
+CMD ["python", "main.py"]
