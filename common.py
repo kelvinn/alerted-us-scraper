@@ -42,7 +42,7 @@ def get_cache():
         region = make_region().configure(
             'dogpile.cache.null'
         )
-    elif RACK_ENV == "development":
+    elif RACK_ENV in ["development", "ci"]:
         region = make_region().configure(
             'dogpile.cache.dbm',
             expiration_time=86400,

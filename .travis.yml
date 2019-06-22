@@ -4,6 +4,9 @@ language: python
 services:
   - docker
 
+env:
+  - RACK_ENV=ci
+
 before_script:
   - scripts/build-aws.sh
 
