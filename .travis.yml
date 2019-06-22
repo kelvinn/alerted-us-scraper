@@ -5,7 +5,6 @@ services:
   - docker
 
 before_script:
-  - sudo apt-get install python3-venv
   - scripts/build-aws.sh
 
 script:
