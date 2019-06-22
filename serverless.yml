@@ -21,6 +21,13 @@ provider:
   name: aws
   stage: production
   runtime: python2.7
+  environment:
+    ALERTED_API: ${ssm:/alertedscraper/dev/api~true}
+    ALERTED_USERPASS: ${ssm:/alertedscraper/dev/userpass~true}
+    RACK_ENV: ${ssm:/alertedscraper/dev/env~true}
+    REDIS_URL: ${ssm:/alertedscraper/dev/redis~true}
+    STAGE: ${ssm:/alertedscraper/dev/stage~true}
+
 
 # you can overwrite defaults here
 #  stage: dev
