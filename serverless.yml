@@ -24,8 +24,8 @@ provider:
   name: aws
   stage: production
   runtime: python3.6
-  memorySize: 1024
-  timeout: 300
+  memorySize: 512
+  timeout: 550
   environment:
     ALERTED_API: ${ssm:/alertedscraper/dev/api~true}
     ALERTED_USERPASS: ${ssm:/alertedscraper/dev/userpass~true}
