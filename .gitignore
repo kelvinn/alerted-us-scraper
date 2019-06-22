@@ -21,5 +21,7 @@ var/
 vendored/
 .venv/
 *.pyc
+node_modules/
+package-lock.json
 cache
 cache.db.rw.lock
