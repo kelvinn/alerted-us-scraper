@@ -55,4 +55,4 @@ functions:
           # since we just have one endpoint I used /
           path: /
           method: get
-      - schedule: rate(3 minutes)
+      - schedule: rate(10 minutes)
