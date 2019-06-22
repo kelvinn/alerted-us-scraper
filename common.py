@@ -69,7 +69,10 @@ def transmit(alerts, trace_entity=None):
 
     logging.info("Querying cache and attempting to transmit %s alerts" % len(alerts))
     for alert in alerts:
-        alert = str(alert).replace('\n', '')
+        # TODO standaridise input a bit better
+        if isinstance(alert, bytes):
+            alert = alert.decode()
+        alert = alert.replace("\\n", '').replace("\\t", '')
 
         identifier = ''
         active = False
@@ -78,7 +81,8 @@ def transmit(alerts, trace_entity=None):
             alert_list = CAPParser(alert).as_dict()
             identifier = str(alert_list[0]['cap_id'])
             active = cache.get(identifier)
-        except:
+        except Exception:
+            logging.info(alert)
             logging.error("Potentially invalid alert")
 
         if not active and identifier:
