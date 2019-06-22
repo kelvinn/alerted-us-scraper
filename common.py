@@ -17,8 +17,9 @@ ALERTED_USERPASS = getenv('ALERTED_USERPASS', 'admin:password')
 RACK_ENV = getenv('RACK_ENV', 'development')
 ALERTED_API = getenv('ALERTED_API', 'http://localhost:8000/api/v1/alerts/')
 
+
 HEADERS = {'Content-Type': 'application/xml',
-           'Authorization': 'Basic %s' % base64.b64encode(ALERTED_USERPASS.encode())}
+           'Authorization': 'Basic %s' % base64.b64encode(ALERTED_USERPASS.encode()).decode()}
 
 REDIS_URL = getenv('REDIS_URL', 'redis://localhost:6379/0')
 
@@ -72,7 +73,7 @@ def transmit(alerts, trace_entity=None):
         # TODO standaridise input a bit better
         if isinstance(alert, bytes):
             alert = alert.decode()
-        alert = alert.replace("\\n", '').replace("\\t", '')
+        alert = alert.replace("\n", '').replace("\t", '')
 
         identifier = ''
         active = False
@@ -82,13 +83,12 @@ def transmit(alerts, trace_entity=None):
             identifier = str(alert_list[0]['cap_id'])
             active = cache.get(identifier)
         except Exception:
-            logging.info(alert)
             logging.error("Potentially invalid alert")
 
         if not active and identifier:
 
             resp = requests.post(url=ALERTED_API, data=alert, headers=HEADERS)
-
+            logging.info(resp)
             if resp.status_code == 201:
                 cache.set(identifier, "submitted")
                 result = True
