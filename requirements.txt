@@ -3,7 +3,7 @@ capparselib==0.6.1.post6
 pytz==2019.3
 requests==2.22.0
 dogpile.cache==0.7.1
-redis==3.3.8
+redis==3.3.11
 responses==0.10.6
 feedparser==5.2.1
 aws-xray-sdk==2.4.2
