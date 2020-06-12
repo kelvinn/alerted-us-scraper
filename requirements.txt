@@ -4,6 +4,6 @@ pytz==2019.3
 requests==2.22.0
 dogpile.cache==0.9.0
 redis==3.3.11
-responses==0.10.6
+responses==0.10.15
 feedparser==5.2.1
 aws-xray-sdk==2.6.0
