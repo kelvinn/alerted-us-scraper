@@ -38,7 +38,7 @@ jobs:
         bash scripts/build-aws.sh
     - name: Test
       run: |
-        bash scripts/scripts/test-aws.sh
+        bash scripts/test-aws.sh
     - name: Deploy
       run: |
-        bash scripts/scripts/deploy-aws.sh
+        bash scripts/deploy-aws.sh
