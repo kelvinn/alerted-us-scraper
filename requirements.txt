@@ -1,6 +1,6 @@
 APScheduler==3.6.3
 capparselib==0.6.3
-pytz==2020.1
+pytz==2020.4
 requests==2.24.0
 dogpile.cache==1.0.2
 redis==3.5.3
