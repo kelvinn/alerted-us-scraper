@@ -41,7 +41,7 @@ jobs:
         bash scripts/test-aws.sh
 
   deploy:
-    needs: test
+    needs: build_test
     runs-on: ubuntu-latest
 
     if: github.event_name == 'push' # Skip on pull requests
