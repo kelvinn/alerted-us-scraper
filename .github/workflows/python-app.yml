@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build_test_deploy:
+  build_test:
 
     runs-on: ubuntu-16.04
 
@@ -39,6 +39,19 @@ jobs:
     - name: Test
       run: |
         bash scripts/test-aws.sh
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    if: github.event_name == 'push' # Skip on pull requests
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
     - name: Deploy
       run: |
         bash scripts/deploy-aws.sh
