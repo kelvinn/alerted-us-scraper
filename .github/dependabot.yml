@@ -1,0 +1,20 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "19:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: responses
+    versions:
+    - 0.12.1
+    - 0.13.1
+    - 0.13.2
+  - dependency-name: aws-xray-sdk
+    versions:
+    - 2.7.0
+  - dependency-name: pytz
+    versions:
+    - "2020.5"
