@@ -54,6 +54,7 @@ jobs:
 
       - name: Deploy
         run: |
+          sudo chown -R $USER /usr/local/lib/node_modules
           bash scripts/deploy-aws.sh
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
