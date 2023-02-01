@@ -1,4 +1,4 @@
-APScheduler==3.7.0
+APScheduler==3.10.0
 capparselib==0.6.6
 pytz==2021.3
 requests==2.25.1
